@@ -54,6 +54,7 @@ function getAverageMark(marks) {
 function getAverageScore(data) {
     let sumOfaverageMarks = 0;
     let counter = 0;
+    let averageScore = 0;
 for (let prop in data) {
     value = data[prop];
     let averageForSubject = getAverageMark(value);
@@ -61,12 +62,15 @@ for (let prop in data) {
     counter += 1;
     sumOfaverageMarks = sumOfaverageMarks + averageForSubject;
 }
-let averageScore = 0;
     if (sumOfaverageMarks > 0 && sumOfaverageMarks != undefined) {
     averageScore = sumOfaverageMarks / counter;
     data.average = averageScore;
-    console.log(data);
 }
+if (sumOfaverageMarks <= 0) {
+    data.average = 0;
+}
+console.log(data);
+    return data
 }
 
 // Задача 3
