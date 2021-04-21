@@ -1,31 +1,21 @@
 // Задача 1
 
 function getSolutions(a, b, c) {
+    let roots = [];
     let D = Math.pow(b, 2) - 4 * a * c;
     let solutions = {};
     if (D > 0) {
-        let x1 = (-b + Math.sqrt(D)) / (2 * a); 
-        let x2 = (-b - Math.sqrt(D)) / (2 * a);
-        solutions = {
-            D: D,
-            roots: [x1, x2]
-        }
+        roots[0] = (-b + Math.sqrt(D)) / (2 * a); 
+        roots[1] = (-b - Math.sqrt(D)) / (2 * a);
     }
     if (D === 0) {
-        x1 = -b / (2 * a);
-        solutions = {
-            D: D,
-            roots: [x1],
-    }
+        roots[0] = -b / (2 * a);
+        
 }
-
-    if (D < 0) {
-        solutions = {
-            D: D,
-            roots:[],
-    }
+    solutions = {
+    D: D,
+    roots: roots,
 }
-    console.log(solutions);
     return solutions;
 }
 
@@ -71,16 +61,12 @@ for (let prop in data) {
     counter += 1;
     sumOfaverageMarks = sumOfaverageMarks + averageForSubject;
 }
-for (let prop in data){ 
-    if (data[prop] === 0) {
-        data.average = 0;
-        console.log(data);
-        return data;
-    }
-}
-    let averageScore = sumOfaverageMarks / counter;
+let averageScore = 0;
+    if (sumOfaverageMarks > 0 && sumOfaverageMarks != undefined) {
+    averageScore = sumOfaverageMarks / counter;
     data.average = averageScore;
     console.log(data);
+}
 }
 
 // Задача 3
