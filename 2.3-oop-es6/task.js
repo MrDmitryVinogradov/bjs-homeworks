@@ -88,23 +88,18 @@ class Library {
                 }
             }
         }
-
         return null
     }
+    
     giveBookByName(bookName) {
         let result = null;
-        let counter;
         for (let i = 0; i < this.books.length; i++) {
             if (this.books[i].name === bookName) {
                 result = this.books[i];
-                counter = i;
+                this.books.splice(i, 1);
+                return result
             }
         }
-
-        if (counter) {
-            this.books.splice(counter, 1)
-        }
-
         return result
     }
 }
