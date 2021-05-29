@@ -14,11 +14,11 @@ function getCountReliableWeapons(durability) {
 }
 
 // hasReliableWeapons
+
 function hasReliableWeapons(durability) {
     if (getCountReliableWeapons(durability) > 0) {
         return true
     }
-
     else {
         return false
     }
@@ -27,16 +27,13 @@ function hasReliableWeapons(durability) {
 // getReliableWeaponsNames
 
 function getReliableWeaponsNames(durability) {
-    let reliableWeapons = weapons.filter(element => element.durability > durability);
-    return reliableWeapons.map(element => element.name);
+    return weapons.filter(element => element.durability > durability).map(element => element.name);
 }
 
 // getTotalDamage 
 
 function getTotalDamage() {
-    let initialValue = 0;
-    return weapons.reduce((accumulator, currentValue) => accumulator + currentValue.attack, initialValue);
-    weapons.reduce()
+    return weapons.reduce((accumulator, currentValue) => accumulator + currentValue.attack, 0);
 }
 
 // Задача 2
@@ -44,13 +41,12 @@ function getTotalDamage() {
 function sleep(milliseconds) {
     let e = new Date().getTime() + milliseconds;
     while (new Date().getTime() <= e) {
-
     }
 }
 
 function sum(...args) {
     // Замедление на половину секунды.
-    sleep(500); 
+    sleep(500);
     return args.reduce((sum, arg) => {
         return sum += +arg;
     }, 0);
@@ -61,20 +57,22 @@ function compareArrays(arr1, arr2) {
 }
 
 // memorize
-
 function memorize(fn, limit) {
+    const memory = [];
+    const obj = {};
     return (...args) => {
-        const memory = [];
-        if (memory.length > limit) {
-            memory.splice(limit, memory.length - limit);
-        }
-        const findInMemory = memory.find(element => compareArrays(element.args, [...args]));
+        const findInMemory = memory.find(element => compareArrays(element.args, Array.from(arguments)));
         if (findInMemory) {
             return findInMemory.result;
         }
-        else { 
-            memory.push(fn(...args));
-            return fn(...args);
+        else {
+            obj.args = Array.from(arguments);
+            obj.result = fn(...args);
         }
+        memory.push(obj);
+        if (memory.length > limit) {
+            memory.splice(limit);
+        }
+        return obj.result;
     }
 }
